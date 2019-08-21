@@ -3,9 +3,6 @@
 #
 # This configuration will be overriden by the Spring profile you use,
 # for example application-dev.yml if you use the "dev" profile.
-#
-# More information on profiles: https://www.jhipster.tech/profiles/
-# More information on configuration properties: https://www.jhipster.tech/common-application-properties/
 # ===================================================================
 
 # ===================================================================
@@ -16,7 +13,7 @@
 
 spring:
     application:
-        name: jhipster-registry
+        name: ecos-registry
     mvc:
         favicon:
             enabled: false
@@ -32,7 +29,7 @@ server:
     port: 8761
 
 logging:
-    file: target/jhipster-registry.log
+    file: target/ecos-registry.log
 
 ribbon:
     eureka:
@@ -89,8 +86,8 @@ management:
 
 eureka:
     instance:
-        appname: jhipster-registry
-        instanceId: jhipsterRegistry:${spring.application.instance-id:${random.value}}
+        appname: ecos-registry
+        instanceId: ecosRegistry:${spring.application.instance-id:${random.value}}
         prefer-ip-address: true
         lease-renewal-interval-in-seconds: 5
         lease-expiration-duration-in-seconds: 10
@@ -109,18 +106,16 @@ eureka:
         service-url:
             defaultZone: http://admin:${spring.security.user.password:admin}@localhost:${server.port}/eureka/
     server:
-        # see discussion about enable-self-preservation:
-        # https://github.com/jhipster/generator-jhipster/issues/3654
         enable-self-preservation: false
         peer-node-read-timeout-ms: 1000
     dashboard:
         path: /registry
-    datacenter: JHipster-DataCenter
-    environment: JHipster-Environment
+    datacenter: ECOS-Registry-DataCenter
+    environment: ECOS-Registry-Environment
 
 jhipster:
     swagger:
         default-include-pattern: /(api|config)/.*
-        title: JHipster Registry API
-        description: JHipster Registry API documentation
+        title: ECOS-Registry API
+        description: ECOS-Registry API documentation
         version: ${info.project.version}

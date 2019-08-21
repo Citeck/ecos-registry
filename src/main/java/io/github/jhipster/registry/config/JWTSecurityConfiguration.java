@@ -116,7 +116,7 @@ public class JWTSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
          .and()
             .httpBasic()
-            .realmName("JHipster Registry")
+            .realmName("ECOS-Registry")
         .and()
             .authorizeRequests()
             .antMatchers("/eureka/**").hasAuthority(AuthoritiesConstants.ADMIN)

@@ -2,14 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.jhipster.registry</groupId>
-    <artifactId>jhipster-registry</artifactId>
+    <groupId>ru.citeck.ecos.registry</groupId>
+    <artifactId>ecos-registry</artifactId>
     <version>4.1.1</version>
     <packaging>war</packaging>
-    <name>JHipster Registry</name>
-    <description>JHipster service registry, made with Netflix Eureka and Spring Cloud Config</description>
+    <name>ECOS-Registry</name>
+    <description>ECOS-Registry service, made with Netflix Eureka and Spring Cloud Config</description>
 
     <properties>
+        <jib.docker.image.tag>draft</jib.docker.image.tag>
         <!-- Build properties -->
         <maven.version>3.0.0</maven.version>
         <java.version>1.8</java.version>
@@ -31,9 +32,7 @@
         <profile.swagger />
 
         <!-- Dependency versions -->
-        <jhipster-dependencies.version>2.1.0</jhipster-dependencies.version>
-        <!-- The spring-boot version should match the one managed by
-        https://mvnrepository.com/artifact/io.github.jhipster/jhipster-dependencies/${jhipster-dependencies.version} -->
+        <ecos-registry-dependencies.version>2.1.0</ecos-registry-dependencies.version>
         <spring-boot.version>2.0.6.RELEASE</spring-boot.version>
         <!-- The hibernate version should match the one managed by
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies/${spring-boot.version} -->
@@ -93,7 +92,7 @@
             <dependency>
                 <groupId>io.github.jhipster</groupId>
                 <artifactId>jhipster-dependencies</artifactId>
-                <version>${jhipster-dependencies.version}</version>
+                <version>${ecos-registry-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -306,6 +305,29 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <groupId>com.google.cloud.tools</groupId>
+                    <artifactId>jib-maven-plugin</artifactId>
+                    <version>${jib-maven-plugin.version}</version>
+                    <configuration>
+                        <from>
+                            <image>openjdk:8-jre-alpine</image>
+                        </from>
+                        <to>
+                            <image>nexus.citeck.ru/ecos-registry:${jib.docker.image.tag}</image>
+                        </to>
+                        <container>
+                            <ports>
+                                <port>8761</port>
+                            </ports>
+                            <environment>
+                                <SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
+                                <JHIPSTER_SLEEP>0</JHIPSTER_SLEEP>
+                            </environment>
+                            <useCurrentTimestamp>true</useCurrentTimestamp>
+                        </container>
+                    </configuration>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>${maven-clean-plugin.version}</version>
@@ -348,11 +370,11 @@
                     <configuration>
                         <rules>
                             <requireMavenVersion>
-                                <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
+                                <message>You are running an older version of Maven. ECOS-Registry requires at least Maven ${maven.version}</message>
                                 <version>[${maven.version},)</version>
                             </requireMavenVersion>
                             <requireJavaVersion>
-                                <message>You are running an older version of Java. JHipster requires at least JDK ${java.version}</message>
+                                <message>You are running an older version of Java. ECOS-Registry requires at least JDK ${java.version}</message>
                                 <version>[${java.version}.0,)</version>
                             </requireJavaVersion>
                         </rules>
@@ -413,7 +435,23 @@
                                 </resource>
                             </resources>
                         </configuration>
-                    </execution>
+                        </execution>
+                        <execution>
+                            <id>jib-www-resources</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${project.build.directory}/classes/static/</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>${project.build.directory}/www</directory>
+                                        <filtering>false</filtering>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
                     </executions>
                 </plugin>
                 <plugin>
@@ -890,4 +928,14 @@
         </profile>
     </profiles>
 
+    <distributionManagement>
+        <repository>
+            <id>citeck-community-releases</id>
+            <url>${community.releases.distr.url}</url>
+        </repository>
+        <snapshotRepository>
+            <id>citeck-community-snapshots</id>
+            <url>${community.snapshots.distr.url}</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
