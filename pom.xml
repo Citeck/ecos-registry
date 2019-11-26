@@ -4,7 +4,7 @@
 
     <groupId>ru.citeck.ecos.registry</groupId>
     <artifactId>ecos-registry</artifactId>
-    <version>4.1.1</version>
+    <version>4.1.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>ECOS-Registry</name>
     <description>ECOS-Registry service, made with Netflix Eureka and Spring Cloud Config</description>
