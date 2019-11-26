@@ -1,2 +1,2 @@
 
-:: Running Spring Boot ${spring-boot.version} ::
+:: STARTING ${AnsiColor.BRIGHT_RED}ECOS-REGISTRYv${AnsiColor.DEFAULT} ::
