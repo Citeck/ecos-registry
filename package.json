@@ -1,7 +1,7 @@
 {
-  "name": "jhipster-registry",
+  "name": "ecos-registry",
   "version": "4.1.1",
-  "description": "JHipster service registry, made with Netflix Eureka and Spring Cloud Config",
+  "description": "ECOS service registry, made with Netflix Eureka and Spring Cloud Config",
   "private": true,
   "cacheDirectories": [
     "node_modules"

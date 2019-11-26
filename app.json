@@ -1,9 +1,9 @@
 {
-  "name": "JHipster Registry",
-  "description": "This is the JHipster registry service, based on Spring Cloud Netflix, Eureka and Spring Cloud Config.",
-  "logo": "https://www.jhipster.tech/images/logo/logo-jhipster-drink-coffee.png",
+  "name": "ECOS-Registry",
+  "description": "This is the ECOS-Registry service, based on Spring Cloud Netflix, Eureka and Spring Cloud Config.",
+  "logo": "",
   "env": {
-    "JHIPSTER_PASSWORD": {
+    "ECOS_REGISTRY_PASSWORD": {
       "description": "Admin password for the registry (used to login after clicking 'View App'). Must be at least 5 characters.",
       "required": "true"
     },
@@ -15,13 +15,13 @@
       "description": "Spring Boot options.",
       "value": "--server.undertow.io-threads=1 --server.undertow.eager-filter-init=false"
     },
-    "JHIPSTER_REGISTRY_VERSION": {
+    "ECOS_REGISTRY_VERSION": {
       "description": "Version of the registry to deploy.",
       "value": "4.1.1"
     }
   },
   "buildpacks": [
     {"url": "heroku/jvm"},
-    {"url": "https://github.com/jhipster/jhipster-registry-buildpack"}
+    {"url": ""}
   ]
 }
