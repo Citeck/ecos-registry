@@ -5,12 +5,13 @@
     <groupId>ru.citeck.ecos.registry</groupId>
     <artifactId>ecos-registry</artifactId>
     <version>4.1.1</version>
-    <packaging>war</packaging>
     <name>ECOS-Registry</name>
     <description>ECOS-Registry service, made with Netflix Eureka and Spring Cloud Config</description>
 
     <properties>
         <jib.docker.image.tag>draft</jib.docker.image.tag>
+        <jib.docker.from.image>registry.citeck.ru/library/openjdk:8-jre-alpine3.9</jib.docker.from.image>
+        <jib.allowInsecureRegistries>false</jib.allowInsecureRegistries>
         <!-- Build properties -->
         <maven.version>3.0.0</maven.version>
         <java.version>1.8</java.version>
@@ -55,7 +56,7 @@
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
         <maven-war-plugin.version>3.2.2</maven-war-plugin.version>
-        <jib-maven-plugin.version>0.9.11</jib-maven-plugin.version>
+        <jib-maven-plugin.version>3.1.4</jib-maven-plugin.version>
         <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
         <dockerfile-maven-plugin.version>1.4.3</dockerfile-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
@@ -318,11 +319,18 @@
                     <version>${jib-maven-plugin.version}</version>
                     <configuration>
                         <from>
-                            <image>openjdk:8-jre-alpine</image>
+                            <image>${jib.docker.from.image}</image>
+                            <platforms>
+                                <platform>
+                                    <architecture>arm64</architecture>
+                                    <os>linux</os>
+                                </platform>
+                            </platforms>
                         </from>
                         <to>
-                            <image>ecos-registry:${jib.docker.image.tag}</image>
+                            <image>${project.artifactId}:${jib.docker.image.tag}</image>
                         </to>
+                        <allowInsecureRegistries>${jib.allowInsecureRegistries}</allowInsecureRegistries>
                         <container>
                             <ports>
                                 <port>8761</port>
@@ -331,7 +339,6 @@
                                 <SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
                                 <JHIPSTER_SLEEP>0</JHIPSTER_SLEEP>
                             </environment>
-                            <useCurrentTimestamp>true</useCurrentTimestamp>
                         </container>
                     </configuration>
                 </plugin>
@@ -426,23 +433,23 @@
                             </configuration>
                         </execution>
                         <execution>
-                        <id>docker-resources</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>target/</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/docker/</directory>
-                                    <filtering>false</filtering>
-                                    <excludes>
-                                        <exclude>**/*.yml</exclude>
-                                    </excludes>
-                                </resource>
-                            </resources>
-                        </configuration>
+                            <id>docker-resources</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>target/</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>src/main/docker/</directory>
+                                        <filtering>false</filtering>
+                                        <excludes>
+                                            <exclude>**/*.yml</exclude>
+                                        </excludes>
+                                    </resource>
+                                </resources>
+                            </configuration>
                         </execution>
                         <execution>
                             <id>jib-www-resources</id>
@@ -906,18 +913,18 @@
         </profile>
         <profile>
             <id>m2e</id><!--This profile is activated when eclipse interacts with maven (using m2e).-->
-                <activation>
-                    <property>
-                        <name>m2e.version</name>
-                    </property>
-                </activation>
-                <build>
-                    <plugins>
-                        <plugin>
-                            <!--eclipse do not support duplicated package-info.java, in both src and test.-->
-                            <artifactId>maven-compiler-plugin</artifactId>
-                            <executions>
-                                <execution>
+            <activation>
+                <property>
+                    <name>m2e.version</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <!--eclipse do not support duplicated package-info.java, in both src and test.-->
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <executions>
+                            <execution>
                                 <id>default-testCompile</id>
                                 <phase>test-compile</phase>
                                 <configuration>
@@ -928,11 +935,11 @@
                                 <goals>
                                     <goal>testCompile</goal>
                                 </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </build>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 

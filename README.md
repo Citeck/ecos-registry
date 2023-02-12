@@ -20,3 +20,8 @@ To run the cloned repository;
 * For development run `./mvnw -Pdev,webpack` to just start in development or run `./mvnw` and run `yarn && yarn start` for hot reload of client side code.
 * For production profile run `./mvnw -Pprod`
 
+## Build local arm64 docker image
+
+`mvn clean package verify jib:dockerBuild -DskipTests=true -P!webpack -Dskip.npm`
+
+user `ecos-registry:draft`
