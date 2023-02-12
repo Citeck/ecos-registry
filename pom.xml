@@ -16,7 +16,7 @@
         <maven.version>3.0.0</maven.version>
         <java.version>1.8</java.version>
         <scala.version>2.12.6</scala.version>
-        <node.version>v10.13.0</node.version>
+        <node.version>v14.21.2</node.version>
         <npm.version>6.4.1</npm.version>
         <yarn.version>v1.9.2</yarn.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -323,6 +323,10 @@
                             <platforms>
                                 <platform>
                                     <architecture>arm64</architecture>
+                                    <os>linux</os>
+                                </platform>
+                                <platform>
+                                    <architecture>amd64</architecture>
                                     <os>linux</os>
                                 </platform>
                             </platforms>
